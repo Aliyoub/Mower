@@ -4,11 +4,15 @@ package com.simplon.mower;
 import java.io.*;
 
 public class Mower {
-    private int X = 0;
-    private int Y = 0;
-    private int X_MAX;
-    private int Y_MAX;
+    private int X ;
+    private int Y ;
+    private int X_MAX = 5;
+    private int Y_MAX = 5;
     private Orientation orientation = Orientation.N;
+    private char lastOrientation ;
+    private int lastX ;
+    private int lastY ;
+
 
 
     public boolean peer(int line) {
@@ -27,13 +31,11 @@ public class Mower {
             String myData;
             int getLine = 0;
             String result = "";
-            char lastOrientation = ' ';
-            Orientation orientation = Orientation.N;
 
             while ((myData = bufferedReader.readLine()) != null) {
                 if (!peer(getLine)) {
-                    X = (int)(myData.charAt(0));
-                    Y = (int)(myData.charAt(1));
+                    lastX = myData.charAt(0);
+                    lastY = myData.charAt(1);
                     lastOrientation = myData.charAt(2);
                 }
                 else {
@@ -69,27 +71,27 @@ public class Mower {
 
                                 case 'F':
                                     if (lastOrientation == 'W') {
-                                        X--;
+                                        X = lastX--;
                                     } else if (lastOrientation == 'E') {
-                                        X++;
+                                        X = lastX++;
                                     } else if (lastOrientation == 'N') {
-                                        Y++;
+                                        Y = lastY++;
                                     } else if (lastOrientation == 'S') {
-                                        Y--;
+                                        Y = lastY--;
                                     }
                                     break;
 
-                                default:
+                                default: result += String.format("%s%s%s%s", lastX, lastY, lastOrientation);
                             }
 
                         } //!for
-                        result += String.format("%s%s%s", X, Y,orientation) + " ";
+                        result += String.format("%s%s%s%s", X, Y,orientation , " ");
                     }
                 }
                 getLine++;
             }
-
-            System.out.println(result);   }
+            System.out.println(result);
+        }
             catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,7 +99,6 @@ public class Mower {
 
     public static void main(String[] args) throws IOException {
         Mower mower = new Mower();
-        //System.out.println(mower.moveToLeft() + mower.moveToRight());
         mower.executeCommand();
     }
 }
