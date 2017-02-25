@@ -1,13 +1,14 @@
 package com.simplon.mower;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
-/**
- * Unit test for simple App.
- */
+import org.junit.Test;
+
 public class MowerTest{
+
+//    @Test
+//    public void test{
+//
+//    }
 
 
 }
